@@ -1,0 +1,25 @@
+{
+  "name": "milktea-lighthouse",
+  "version": "0.0.1",
+  "description": "lighthouse , web performance",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Will233/milktea-lighthouse.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Will233/milktea-lighthouse/issues"
+  },
+  "homepage": "https://github.com/Will233/milktea-lighthouse#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "chrome-launcher": "^0.13.4",
+    "lighthouse": "^6.1.1"
+  }
+}
