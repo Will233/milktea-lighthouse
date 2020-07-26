@@ -17,28 +17,53 @@ const MAX_SEARCHABLE_TIME = 4000;
 class LoadAudit extends Audit {
   static get meta() {
     return {
-      id: 'searchable-audit',
-      title: 'Search box initialized and ready',
-      failureTitle: 'Search box slow to initialize',
-      description: 'Used to measure time to when the search' +
-          ' box is initialized and ready to search.',
+      id: 'performance-audit',
+      title: 'Performance timing',
+      failureTitle: 'fail to get performance api',
+      description: 'Used to measure load time',
 
       // The name of the custom gatherer class that provides input to this audit.
-      requiredArtifacts: ['TimeToSearchable'],
+      requiredArtifacts: ['PerformanceTime'],
     };
   }
 
   static audit(artifacts) {
-    const loadMetrics = artifacts.TimeToSearchable;
-
+    // 相当于 performance.timing
+    const timing = {
+      connectEnd: 1595664920879,
+      connectStart: 1595664920879,
+      domComplete: 1595664921402,
+      domContentLoadedEventEnd: 1595664921337,
+      domContentLoadedEventStart: 1595664921337,
+      domInteractive: 1595664921337,
+      domLoading: 1595664920896,
+      domainLookupEnd: 1595664920879,
+      domainLookupStart: 1595664920879,
+      fetchStart: 1595664920879,
+      loadEventEnd: 1595664921402,
+      loadEventStart: 1595664921402,
+      navigationStart: 1595664920878,
+      redirectEnd: 0,
+      redirectStart: 0,
+      requestStart: 1595664920883,
+      responseEnd: 1595664920886,
+      responseStart: 1595664920884,
+      secureConnectionStart: 0,
+      unloadEventEnd: 1595664920891,
+      unloadEventStart: 1595664920890,
+    }
+    const performanceTiming = artifacts.PerformanceTime;
+    console.log(performanceTiming)
     // Audit will pass when the search box loaded in less time than our threshold.
     // This score will be binary, so will get a red ✘ or green ✓ in the report.
-    const belowThreshold = loadMetrics.searchableTime <= MAX_SEARCHABLE_TIME;
-
+    // const belowThreshold = performanceTiming.searchableTime <= MAX_SEARCHABLE_TIME;
+    // 计算白屏时间
+    const domReadyTime = performanceTiming.domContentLoadedEventStart - performanceTiming.navigationStart
+    const isRight = domReadyTime < 1000
     return {
-      numericValue: loadMetrics.searchableTime,
+      numericValue: domReadyTime,
       // Cast true/false to 1/0
-      score: Number(belowThreshold),
+      score: Number(isRight),
     };
   }
 }

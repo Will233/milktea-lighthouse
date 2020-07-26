@@ -33,8 +33,7 @@ const runLighthouse = async ({
  * @param {*} config 
  */
 const start = async ({ url, reportName }) => {
-  const { lighthouse, browser, audit} = config
-  // let { runTimes, watchAudits } = audit
+  const { lighthouse, browser} = config
   let chrome = await launchChrome(browser.chromeFlags, browser, lighthouse)
   // chrome,
   // url,

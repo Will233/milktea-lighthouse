@@ -19,7 +19,7 @@ const lighthouse = {
       // 'first-meaningful-paint',
       // 'speed-index',
       // 'first-cpu-idle',
-      'performance-audit',
+      './src/core/audits',
     ],
     // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
     // skipAudits: ['uses-http2'],
@@ -28,12 +28,12 @@ const lighthouse = {
   passes: [{
     passName: 'defaultPass',
     gatherers: [
-      'performance-gatherer',
+      './src/core/gatherers',
     ],
   }],
   // 3. Add custom audit to the list of audits 'lighthouse:default' will run.
   audits: [
-    'performance-audit',
+    './src/core/audits',
   ],
   // audits: [
   //   'metrics/first-contentful-paint-3g',
@@ -76,20 +76,6 @@ const browser = {
   }
 };
 
-/**
- * 测试过程相关的配置
- */
-const audit = {
-  originUrl: 'https://hcz-static.pingan.com.cn/activities/otherInsurance1/index.html#/insureIndex?productId=20180531263676&titleBar=no&activityShareCode=11111',
-  experimentUrl: 'https://hcz-static.pingan.com.cn/activities/otherInsurance2/index.html#/insureIndex?productId=20180531263676&titleBar=no&activityShareCode=11111',
-  runTimes: 10,
-  watchAudits: [
-    'first-contentful-paint',
-    'first-meaningful-paint',
-    'user-timings'
-  ]
-}
-
 const report = {
   dir: './__reports__'
 }
@@ -97,6 +83,5 @@ const report = {
 module.exports = {
   lighthouse,
   browser,
-  audit,
   report
 };

@@ -8,39 +8,23 @@
 const Gatherer = require('lighthouse').Gatherer;
 
 /**
- * @fileoverview Extracts `window.myLoadMetrics` from the test page.
+ * @fileoverview Extracts `window.perf` from the test page.
  */
 
 class PerformanceTime extends Gatherer {
   afterPass(options) {
     const driver = options.driver;
-    // return new Promise((resolve, reject) => {
-    //   let loadTimeout;
-    //   const loadListener = function() {
-    //     loadTimeout = setTimeout(resolve, 100);
-    //   };
-    //   driver.once('Page.loadEventFired', loadListener);
-
-    //   let canceled = false;
-    //   cancel = () => {
-    //     if (canceled) return;
-    //     canceled = true;
-    //     this.off('Page.loadEventFired', loadListener);
-    //     loadTimeout && clearTimeout(loadTimeout);
-    //   };
-    // }).then(() => {
-
-    // });
-    return driver.evaluateAsync('window.perf')
+    // 这里获取过程可以读取配置, 如果增加了新的性能对象，可以这里修改读取方式
+    return driver.evaluateAsync('JSON.parse(JSON.stringify(performance.timing))')
       // Ensure returned value is what we expect.
-      .then(loadMetrics => {
-        if (!loadMetrics || loadMetrics.timing === undefined) {
+      .then(perf => {
+        if (!perf) {
           // Throw if page didn't provide the metrics we expect. This isn't
           // fatal -- the Lighthouse run will continue, but any audits that
           // depend on this gatherer will show this error string in the report.
-          throw new Error('Unable to find load metrics in page');
+          throw new Error('Unable to find load perf in page');
         }
-        return loadMetrics;
+        return perf;
       });
   }
 }

@@ -6,5 +6,5 @@ const { start } = require('./core/run')
 
 start({
   url: 'https://cn.bing.com/',
-  reportName: 'local'
+  reportName: 'bing'
 })
