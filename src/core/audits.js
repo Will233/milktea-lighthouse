@@ -5,6 +5,8 @@
  */
 'use strict';
 
+const chalk = require('chalk');
+
 const Audit = require('lighthouse').Audit;
 
 const MAX_SEARCHABLE_TIME = 4000;
@@ -53,18 +55,25 @@ class LoadAudit extends Audit {
       unloadEventStart: 1595664920890,
     }
     const performanceTiming = artifacts.PerformanceTime;
-    console.log(performanceTiming)
+    // console.log(performanceTiming)
     // Audit will pass when the search box loaded in less time than our threshold.
     // This score will be binary, so will get a red ✘ or green ✓ in the report.
     // const belowThreshold = performanceTiming.searchableTime <= MAX_SEARCHABLE_TIME;
     // 计算白屏时间
     const domReadyTime = performanceTiming.domContentLoadedEventStart - performanceTiming.navigationStart
+    console.log(chalk.green('dom ready:' + domReadyTime))
     const isRight = domReadyTime < 1000
+    // return {
+    //   numericValue: domReadyTime,
+    //   // Cast true/false to 1/0
+    //   score: Number(isRight),
+    // };
+
     return {
-      numericValue: domReadyTime,
-      // Cast true/false to 1/0
       score: Number(isRight),
-    };
+      numericValue: domReadyTime,
+      numericUnit: 'millisecond',
+    }
   }
 }
 

@@ -76,6 +76,22 @@ const browser = {
   }
 };
 
+const analyse = {
+  count: 1,
+  watchAudits: [
+    'performance-audit'
+  ],
+  sites: [{
+    url: 'https://cn.bing.com/',
+    type: 'ORIGIN',
+    label: '对照组'
+  }, {
+    url: 'https://cn.bing.com/',
+    type: 'EXPERIMENT',
+    label: '优化组'
+  }]
+}
+
 const report = {
   dir: './__reports__'
 }
@@ -83,5 +99,6 @@ const report = {
 module.exports = {
   lighthouse,
   browser,
-  report
+  analyse,
+  report,
 };

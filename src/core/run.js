@@ -51,6 +51,7 @@ const start = async ({ url, reportName }) => {
   await generateReport(filename, res)
   await closeChrome(chrome)
 }
+
 module.exports = {
   runLighthouse,
   start

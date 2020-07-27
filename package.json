@@ -3,8 +3,13 @@
   "version": "0.0.1",
   "description": "lighthouse , web performance",
   "main": "src/index.js",
+  "bin": {
+    "mt": "./bin/mt.js"
+  },
   "scripts": {
+    "mt": "node bin/mt.js run 'https://cn.bing.com/' -l 'bing'",
     "start": "node src/index.js",
+    "compare": "node bin/mt.js compare",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +25,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "chrome-launcher": "^0.13.4",
+    "commander": "^6.0.0",
     "lighthouse": "^6.1.1"
   }
 }
