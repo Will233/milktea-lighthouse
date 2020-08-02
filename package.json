@@ -8,6 +8,7 @@
   },
   "scripts": {
     "mt": "node bin/mt.js run 'https://cn.bing.com/' -l 'bing'",
+    "ui": "node bin/mt.js ui -p 5555",
     "start": "node src/index.js",
     "compare": "node bin/mt.js compare",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,9 +24,15 @@
   },
   "homepage": "https://github.com/Will233/milktea-lighthouse#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "chalk": "^4.1.0",
     "chrome-launcher": "^0.13.4",
     "commander": "^6.0.0",
+    "http-server": "^0.12.3",
+    "koa": "^2.13.0",
+    "koa-body-parser": "^1.1.2",
+    "koa-router": "^9.1.0",
+    "koa-static-server": "^1.5.2",
     "lighthouse": "^6.1.1"
   }
 }

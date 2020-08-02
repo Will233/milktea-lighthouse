@@ -42,8 +42,8 @@ const run = async ({ url, reportName }) => {
  * 
  */
 
-const compare = async () => {
-  const { analyse } = config
+const compare = async (options) => {
+  const { analyse } = options || config
   const { count, watchAudits, sites } = analyse
 
   // {

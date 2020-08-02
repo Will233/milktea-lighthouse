@@ -105,4 +105,6 @@ dist
 
 __reports__
 
+data
+
 yarn.lock
