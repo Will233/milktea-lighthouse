@@ -25,7 +25,6 @@ const run = async ({ url, reportName }) => {
   // const filename = `${reportName || site}__${Date.now()}.json`
   // await generateReport(filename, res)
   await closeChrome(chrome)
-  console.log(res.audits)
   return res
 }
 
@@ -77,7 +76,6 @@ const compare = async (options) => {
     // 解析audits 结果，并上报比较
 
     watchAudits.forEach(audit => {
-      console.log(res1.audits[audit])
       if (Array.isArray(series1[audit])) {
         series1[audit].push(res1.audits[audit].numericValue)
       } else {
@@ -91,7 +89,7 @@ const compare = async (options) => {
     })
     curr++
   }
-  console.log(series1)
+  // console.log(series1)
   // return [series1, series2]
   setEcharts(analyse, [series1, series2])
 }
@@ -110,7 +108,7 @@ const setEcharts = (analyseConfig, series) => {
     },
     series: [],
   }
-  for (let index = 0; index < watchAudits.length; index++) {
+  for (let index = 0; index < count; index++) {
     echartsData.xAxis.data.push(`第${index+1}次`)
   }
 

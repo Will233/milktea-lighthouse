@@ -20,10 +20,10 @@ const runLighthouse = async ({
   browser,
   config
 }) => {
-  console.log(config.passes)
+  // console.log(config.passes)
   if (!chrome) return
   browser.port = chrome.port;
-  console.log(chalk.yellow(JSON.stringify(config)))
+  // console.log(chalk.yellow(JSON.stringify(config)))
   const result = await lighthouse(url, browser, config).then(result => result.lhr)
   return result
 }

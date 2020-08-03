@@ -19,7 +19,8 @@ const lighthouse = {
       // 'first-meaningful-paint',
       // 'speed-index',
       // 'first-cpu-idle',
-      './src/core/audits',
+      './src/core/audits/dom-ready',
+      './src/core/audits/dom-complete'
     ],
     // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
     // skipAudits: ['uses-http2'],
@@ -33,7 +34,8 @@ const lighthouse = {
   }],
   // 3. Add custom audit to the list of audits 'lighthouse:default' will run.
   audits: [
-    './src/core/audits',
+    './src/core/audits/dom-ready',
+    './src/core/audits/dom-complete'
   ],
   // audits: [
   //   'metrics/first-contentful-paint-3g',
@@ -45,7 +47,8 @@ const lighthouse = {
       description: 'Metrics for our super awesome site',
       auditRefs: [
         // When we add more custom audits, `weight` controls how they're averaged together.
-        {id: 'performance-audit', weight: 1},
+        {id: 'dom-ready', weight: 1},
+        {id: 'dom-complete', weight: 1},
       ],
     },
   },
@@ -63,7 +66,7 @@ const lighthouse = {
   // }
 };
 const browser = {
-  chromeFlags: ['--show-paint-rects', '--headless'],
+  chromeFlags: ['--headless'],
   headless: true,
   executablePath: CHROME_PATH,
   device: '',
@@ -79,14 +82,15 @@ const browser = {
 const analyse = {
   count: 1,
   watchAudits: [
-    'performance-audit'
+    'dom-ready',
+    'dom-complete'
   ],
   sites: [{
-    url: 'https://cn.bing.com/',
+    url: 'https://cn.bing.com',
     type: 'ORIGIN',
     label: '对照组'
   }, {
-    url: 'https://cn.bing.com/',
+    url: 'https://cn.bing.com',
     type: 'EXPERIMENT',
     label: '优化组'
   }]

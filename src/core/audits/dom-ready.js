@@ -9,18 +9,16 @@ const chalk = require('chalk');
 
 const Audit = require('lighthouse').Audit;
 
-const MAX_SEARCHABLE_TIME = 4000;
-
 /**
  * @fileoverview Tests that `window.myLoadMetrics.searchableTime` was below the
  * test threshold value.
  */
 
-class LoadAudit extends Audit {
+class DomReadyAudit extends Audit {
   static get meta() {
     return {
-      id: 'performance-audit',
-      title: 'Performance timing',
+      id: 'dom-ready',
+      title: 'dom-ready timing',
       failureTitle: 'fail to get performance api',
       description: 'Used to measure load time',
 
@@ -61,7 +59,7 @@ class LoadAudit extends Audit {
     // const belowThreshold = performanceTiming.searchableTime <= MAX_SEARCHABLE_TIME;
     // 计算白屏时间
     const domReadyTime = performanceTiming.domContentLoadedEventStart - performanceTiming.navigationStart
-    // console.log(chalk.green('dom ready:' + domReadyTime))
+    console.log(chalk.green('dom ready:' + domReadyTime))
     const isRight = domReadyTime < 1000
     // return {
     //   numericValue: domReadyTime,
@@ -77,4 +75,4 @@ class LoadAudit extends Audit {
   }
 }
 
-module.exports = LoadAudit;
+module.exports = DomReadyAudit;

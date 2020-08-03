@@ -108,3 +108,4 @@ __reports__
 data
 
 yarn.lock
+.vscode

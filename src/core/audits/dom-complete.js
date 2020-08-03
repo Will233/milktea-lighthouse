@@ -16,11 +16,11 @@ const MAX_SEARCHABLE_TIME = 4000;
  * test threshold value.
  */
 
-class LoadAudit extends Audit {
+class DomCompleteAudit extends Audit {
   static get meta() {
     return {
-      id: 'performance-audit',
-      title: 'Performance timing',
+      id: 'dom-complete',
+      title: 'Dom-complete timing',
       failureTitle: 'fail to get performance api',
       description: 'Used to measure load time',
 
@@ -60,9 +60,9 @@ class LoadAudit extends Audit {
     // This score will be binary, so will get a red ✘ or green ✓ in the report.
     // const belowThreshold = performanceTiming.searchableTime <= MAX_SEARCHABLE_TIME;
     // 计算白屏时间
-    const domReadyTime = performanceTiming.domContentLoadedEventStart - performanceTiming.navigationStart
-    // console.log(chalk.green('dom ready:' + domReadyTime))
-    const isRight = domReadyTime < 1000
+    const domCompleteTime = performanceTiming.loadEventEnd - performanceTiming.navigationStart
+    console.log(chalk.green('dom complete:' + domCompleteTime))
+    const isRight = domCompleteTime < 3000
     // return {
     //   numericValue: domReadyTime,
     //   // Cast true/false to 1/0
@@ -71,10 +71,10 @@ class LoadAudit extends Audit {
 
     return {
       score: Number(isRight),
-      numericValue: domReadyTime,
+      numericValue: domCompleteTime,
       numericUnit: 'millisecond',
     }
   }
 }
 
-module.exports = LoadAudit;
+module.exports = DomCompleteAudit;
