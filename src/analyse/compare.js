@@ -63,6 +63,7 @@ const compare = async (options) => {
   const series1 = {}
   const series2 = {}
   while(curr < count) {
+    console.log(`运行测试：=> 第${curr + 1}次`)
     let res1, res2;
     // 交替运行，减少误差
     if (curr % 2 === 0) {
@@ -96,7 +97,7 @@ const compare = async (options) => {
 
 const setEcharts = (analyseConfig, series) => {
   // init echarts
-  const { count, watchAudits} = analyseConfig
+  const { count, watchAudits, sites} = analyseConfig
   const echartsData = {
     legend: {
       data:[]
@@ -113,34 +114,17 @@ const setEcharts = (analyseConfig, series) => {
   }
 
   watchAudits.forEach(audit => {
-    echartsData.series.push({
-      name: `${audit}(对照组)`,
-      type: 'line',
-      groupType: '对照组',
-      seriesType: audit,
-      data: series[0][audit]
+    sites.forEach((site, index) => {
+      echartsData.series.push({
+        name: `${audit + site.label}`,
+        type: 'line',
+        groupType: site.label,
+        seriesType: audit,
+        data: series[index][audit]
+      })
+      echartsData.legend.data.push(`${audit + site.label}`)
     })
-    echartsData.legend.data.push(`${audit}(对照组)`)
-
-    echartsData.series.push({
-      name: `${audit}(优化组)`,
-      type: 'line',
-      groupType: '优化组',
-      seriesType: audit,
-      data: series[1][audit]
-    })
-    echartsData.legend.data.push(`${audit}(优化组)`)
-
   })
-  // const res = {
-  //   legend: echartsData.legends,
-  //   series: echartsData.series,
-  //   aAxis: {
-  //     type: 'category',
-  //     boundaryGap: false,
-  //     data: echartsData.axis
-  //   }
-  // }
   // write into file
   fs.writeFileSync('__reports__/series.js',
     `window.reportData = ${JSON.stringify(echartsData)}`
